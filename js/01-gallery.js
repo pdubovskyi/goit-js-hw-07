@@ -1,4 +1,41 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 console.log(galleryItems);
+
+// ------------1----------------
+
+const items = galleryItems
+  .map(({ preview, original, description }) => {
+    return `<div class="gallery__item">
+  <a class="gallery__link" href="${original}">
+    <img
+      class="gallery__image"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
+    />
+  </a>
+</div>`;
+  })
+  .join("");
+
+const galleryEl = document.querySelector(".gallery");
+galleryEl.insertAdjacentHTML("beforeend", items);
+
+// ---------------2------------------
+galleryEl.addEventListener("click", onGalleryClick);
+
+function onGalleryClick(e) {
+  e.preventDefault();
+  if (!e.target.classList.contains("gallery__image")) {
+    return;
+  }
+  console.log(e.target);
+  const origImg = e.target.dataset.source;
+  console.log(origImg);
+  const instance = basicLightbox.create(`
+    <img src="${origImg}">
+`);
+  instance.show();
+}
