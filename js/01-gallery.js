@@ -38,4 +38,18 @@ function onGalleryClick(e) {
     <img src="${origImg}">
 `);
   instance.show();
+
+  window.addEventListener("keydown", onEscapeClick);
+
+  function onEscapeClick(e) {
+    if (e.code === "Escape") {
+      console.log(e.code);
+      instance.close();
+      onCloseModal();
+    }
+  }
+
+  function onCloseModal() {
+    window.removeEventListener("keydown", onEscapeClick);
+  }
 }
